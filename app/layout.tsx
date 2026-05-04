@@ -20,14 +20,20 @@ export const metadata: Metadata = {
     title: "NoteHub",
     description:
       "NoteHub is a simple application for creating, managing and organizing notes.",
-    images: ["https://ac.goit.global/fullstack/react/notehub-og-meta.jpg"],
+    url: "https://notehub.vercel.app",
+    images: [
+      {
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+      },
+    ],
   },
 };
-
 export default function RootLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -35,6 +41,7 @@ export default function RootLayout({
         <TanStackProvider>
           <Header />
           {children}
+          {modal}
           <Footer />
         </TanStackProvider>
       </body>

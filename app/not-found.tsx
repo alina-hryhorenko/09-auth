@@ -10,7 +10,11 @@ export const metadata: Metadata = {
     description:
       "This page does not exist. The requested resource could not be found in NoteHub.",
     url: "https://notehub.vercel.app/404",
-    images: ["https://ac.goit.global/fullstack/react/notehub-og-meta.jpg"],
+    images: [
+      {
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+      },
+    ],
   },
 };
 

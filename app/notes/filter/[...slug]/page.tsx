@@ -33,7 +33,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       url: `${baseUrl}/notes/filter/${selectedTag}`,
-      images: [ogImage],
+      images: [
+        {
+          url: ogImage,
+        },
+      ],
     },
   };
 }

@@ -31,7 +31,11 @@ export async function generateMetadata({
       title,
       description,
       url: `${baseUrl}/notes/${id}`,
-      images: [ogImage],
+      images: [
+        {
+          url: ogImage,
+        },
+      ],
     },
   };
 }

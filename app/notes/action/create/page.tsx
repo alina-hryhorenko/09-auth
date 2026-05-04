@@ -12,7 +12,11 @@ export const metadata: Metadata = {
     title: "Create note | NoteHub",
     description: "Create a new note in NoteHub.",
     url: `${baseUrl}/notes/action/create`,
-    images: [ogImage],
+    images: [
+      {
+        url: ogImage,
+      },
+    ],
   },
 };
 
