@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { fetchNotes } from "@/lib/api";
 import type { NoteTag } from "@/types/note";
@@ -8,8 +9,6 @@ import type { NoteTag } from "@/types/note";
 import NoteList from "@/components/NoteList/NoteList";
 import Pagination from "@/components/Pagination/Pagination";
 import SearchBox from "@/components/SearchBox/SearchBox";
-import Modal from "@/components/Modal/Modal";
-import NoteForm from "@/components/NoteForm/NoteForm";
 
 interface Props {
   tag?: NoteTag;
@@ -19,7 +18,6 @@ export default function NotesClient({ tag }: Props) {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -50,9 +48,7 @@ export default function NotesClient({ tag }: Props) {
 
   return (
     <>
-      <button type="button" onClick={() => setIsModalOpen(true)}>
-        Create note
-      </button>
+      <Link href="/notes/action/create">Create note +</Link>
 
       <SearchBox value={search} onSearch={handleSearch} />
 
@@ -64,12 +60,6 @@ export default function NotesClient({ tag }: Props) {
           currentPage={page}
           onPageChange={setPage}
         />
-      )}
-
-      {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}>
-          <NoteForm onClose={() => setIsModalOpen(false)} />
-        </Modal>
       )}
     </>
   );
