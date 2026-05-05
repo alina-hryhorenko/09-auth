@@ -59,12 +59,12 @@ export const logout = async (): Promise<void> => {
   await api.post("/auth/logout");
 };
 
-export const checkSession = async (): Promise<User | null> => {
+export const checkSession = async (): Promise<boolean> => {
   try {
     const { data } = await api.get("/auth/session");
-    return data || null;
+    return Boolean(data?.success);
   } catch {
-    return null;
+    return false;
   }
 };
 

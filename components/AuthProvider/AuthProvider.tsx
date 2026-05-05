@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { checkSession } from "@/lib/api/clientApi";
+import { checkSession, getMe } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 
 export default function AuthProvider({
@@ -20,9 +20,10 @@ export default function AuthProvider({
   useEffect(() => {
     const verifySession = async () => {
       try {
-        const user = await checkSession();
+        const isSession = await checkSession();
 
-        if (user) {
+        if (isSession) {
+          const user = await getMe();
           setUser(user);
         } else {
           clearAuth();
