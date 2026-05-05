@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { fetchNotes } from "@/lib/api";
+import { fetchNotes } from "@/lib/api/clientApi";
 import type { NoteTag } from "@/types/note";
 
 import NoteList from "@/components/NoteList/NoteList";
@@ -48,7 +48,9 @@ export default function NotesClient({ tag }: Props) {
 
   return (
     <>
-      <Link href="/notes/action/create">Create note +</Link>
+      <Link href="/notes/action/create" prefetch={false}>
+        Create note +
+      </Link>
 
       <SearchBox value={search} onSearch={handleSearch} />
 
