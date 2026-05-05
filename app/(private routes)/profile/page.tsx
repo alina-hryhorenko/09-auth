@@ -1,12 +1,16 @@
-"use client";
-
-import { useAuthStore } from "@/lib/store/authStore";
-import css from "./Profile.module.css";
-import Link from "next/link";
+import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
+import { getMe } from "@/lib/api/serverApi";
+import css from "./Profile.module.css";
 
-export default function ProfilePage() {
-  const user = useAuthStore((state) => state.user);
+export const metadata: Metadata = {
+  title: "Profile | NoteHub",
+  description: "User profile page in NoteHub.",
+};
+
+export default async function ProfilePage() {
+  const user = await getMe();
 
   return (
     <main className={css.mainContent}>
@@ -25,7 +29,7 @@ export default function ProfilePage() {
         <div className={css.avatarWrapper}>
           <Image
             src={
-              user?.avatar ??
+              user.avatar ??
               "https://ac.goit.global/fullstack/react/default-avatar.jpg"
             }
             alt="User Avatar"
@@ -36,8 +40,8 @@ export default function ProfilePage() {
         </div>
 
         <div className={css.profileInfo}>
-          <p>Username: {user?.username}</p>
-          <p>Email: {user?.email}</p>
+          <p>Username: {user.username}</p>
+          <p>Email: {user.email}</p>
         </div>
       </div>
     </main>

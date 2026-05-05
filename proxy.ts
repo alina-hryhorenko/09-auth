@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function proxy(request: NextRequest) {
-  const hasCookies = request.cookies.getAll().length > 0;
+export async function proxy(request: NextRequest) {
+  const accessToken = request.cookies.get("accessToken")?.value;
+  const refreshToken = request.cookies.get("refreshToken")?.value;
 
   const isAuthPage =
     request.nextUrl.pathname.startsWith("/sign-in") ||
@@ -12,12 +13,12 @@ export function proxy(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/profile") ||
     request.nextUrl.pathname.startsWith("/notes");
 
-  if (!hasCookies && isPrivatePage) {
+  if (!accessToken && !refreshToken && isPrivatePage) {
     return NextResponse.redirect(new URL("/sign-in", request.url));
   }
 
-  if (hasCookies && isAuthPage) {
-    return NextResponse.redirect(new URL("/profile", request.url));
+  if ((accessToken || refreshToken) && isAuthPage) {
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return NextResponse.next();
